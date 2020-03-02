@@ -1,56 +1,21 @@
-import React from 'react';
-import axios from 'axios';
-import Movie from './Movie';
-import "./App.css";
+import React from "react";
+import { HashRouter, Route } from 'react-router-dom' // 여러 라우터 존재
+// Browser Router
+import Home from "./routes/Home";
+import About from "./routes/About"; // {About as Potato}
+import Navigation from "./component/Navigation";
 
+// 라우터는 동작방식이 이렇다. 겹치는 URL은 동시에 렌더링해버린다.
+// 컴포넌트를 렌더링할수있고 안에 요소가있으면 안에요소를 렌더링한다.
 
-class App extends React.Component
+// URL에 따라서 어떤것을 렌더링 할 지 결정하는 것, 그것이 Route의 역할이다.
+function App()
 {
-
-    state = {
-        isLoading: true,
-        movies: []
-    };
-
-    getMovies = async () => {
-
-      const {data : { data: {movies}}} = await axios.get("https://yts-proxy.now.sh/list_movies.json?sort_by=rating");
-      this.setState({movies: movies, isLoading: false});
-    }
-
-
-    componentDidMount()
-    {
-        this.getMovies();
-    }
-
-    render()
-    {
-        const {isLoading, movies } = this.state;
-
-        return (
-          <section className="container">
-            { isLoading ? (  
-               <div className="loader">
-                 <span className="loader_text">Loading...</span>
-               </div>
-            ) : (
-              <div className="movies">
-              {
-                movies.map(movie => (<Movie key={movie.id} 
-                  id={movie.id} 
-                  year={movie.year} 
-                  title={movie.title} 
-                  summary={movie.summary} 
-                  poster={movie.medium_cover_image}
-                  genres={movie.genres} />)
-              )} 
-              </div> 
-            )} 
-          </section>
-          );
-    }
-
+  return <HashRouter>
+      <Navigation/>
+      <Route path="/" exact={true} component={Home} />
+      <Route path="/about" component={About} />
+  </HashRouter>
 }
 
 export default App;
