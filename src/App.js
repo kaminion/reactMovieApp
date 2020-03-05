@@ -4,6 +4,7 @@ import { HashRouter, Route } from 'react-router-dom' // 여러 라우터 존재
 import Home from "./routes/Home";
 import About from "./routes/About"; // {About as Potato}
 import Navigation from "./component/Navigation";
+import Detail from "./routes/Detail";
 
 // 라우터는 동작방식이 이렇다. 겹치는 URL은 동시에 렌더링해버린다.
 // 컴포넌트를 렌더링할수있고 안에 요소가있으면 안에요소를 렌더링한다.
@@ -15,6 +16,7 @@ function App()
       <Navigation/>
       <Route path="/" exact={true} component={Home} />
       <Route path="/about" component={About} />
+      <Route path="/movie-detail" component={Detail} />
   </HashRouter>
 }
 
