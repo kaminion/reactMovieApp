@@ -24,6 +24,12 @@ class Home extends React.Component
         this.getMovies();
     }
 
+    // 같은 페이지에서 갱신할때만.. 이 상태를 다 주고다녀야 다시갱신을 안할텐데..
+    shouldComponentUpdate(nextProps, nextState)
+    {
+      return this.state !== nextState;
+    }
+
     render()
     {
         const {isLoading, movies } = this.state;
